@@ -1,0 +1,868 @@
+---
+title: "Introdução ao R e Tratamento de Dados"
+author: 
+       - Rodolpho J. D. Quintela
+       - "e-mail: rodolpho.quintela@urca.br"
+institute: URCA - Iguatu
+date: \today
+
+header-includes:  
+    \usepackage{hyperref}
+     \usepackage[utf8]{inputenc}
+     \usepackage[brazil]{babel}
+     \usepackage[T1]{fontenc}
+     \usepackage{amsmath}
+     \usepackage{indentfirst}
+     \usepackage{graphicx}
+     \usepackage{ragged2e}
+output:
+  beamer_presentation: 
+  slidy_presentation: 
+  slide_level: 2
+fonttheme: structurebold
+colortheme: orchid
+theme: Berkeley
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE,
+                      message=FALSE, warning=FALSE,
+                      fig.path='figs/',
+                      cache.path = '_cache/',
+                      fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      })
+```
+
+
+# Introdução ao R
+## Objetivo
+
+\justifying
+
+1. __Introdução ao R__: Apresentar o ambiente de programação R, incluindo a instalação, configuração e navegação básica.
+
+2. __Estatísticas Descritivas__: Introduzir conceitos de estatísticas descritivas e mostrar como calcular medidas de tendência central, dispersão e apresentá-las visualmente.
+
+3. __Tratamento de Dados__: Importar, limpar e manipular conjuntos de dados usando pacotes e funções relevantes do R, como dplyr.
+
+4. __Visualização de Dados__: Explorar as capacidades de visualização do R com pacotes como ggplot2, e mostrar como criar gráficos informativos e esteticamente agradáveis.
+
+## Apresentação do R
+\justifying
+- R é uma linguagem de programação e ambiente estatístico.
+- Criado por Ross Ihaka e Robert Gentleman em 1993.
+- É uma linguagem interpretada e gratuita.
+- Amplamente utilizado para análise de dados, estatísticas e visualização gráfica.
+- R é mantido por uma comunidade ativa de desenvolvedores.
+
+
+## Instalação do R
+
+\justifying
+- Visite o site oficial do R: [https://www.r-project.org/](https://www.r-project.org/)
+- Clicar em 'download R' ou em 'CRAN'.
+```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+dir<-"~/Área de Trabalho/Minicurso/figs/r_project.png"
+knitr::include_graphics(dir)
+```
+
+## Instalação do R
+
+\justifying
+- Você será direcionado para a página [https://cran.r-project.org/mirrors.html](https://cran.r-project.org/mirrors.html).
+- Escolha o espelho de sua preferência
+```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+dir<-"~/Área de Trabalho/Minicurso/figs/r_project_mirror.png"
+knitr::include_graphics(dir)
+```
+
+## Instalação do R
+
+\justifying
+
+- Clique no sistema operacional do seu computador 
+
+```{r echo=FALSE,out.width="80%",fig.align = 'center'}
+dir<-"~/Área de Trabalho/Minicurso/figs/r_project_sistem.png"
+knitr::include_graphics(dir)
+```
+
+## Instalação do R
+\justifying
+
+- Clique em 'base'
+
+- Clique em 'Download R-$\cdots$ for Windows'
+
+- Executar o arquivo após o download
+
+## Interface do R
+
+```{r echo=FALSE,out.width="80%", fig.align = 'center', fig.cap="Interface do R."}
+dir<-"~/Área de Trabalho/Minicurso/figs/R_interface.png"
+knitr::include_graphics(dir)
+```
+
+## RStudio: Uma IDE popular para R
+
+\justifying
+- O RStudio é uma IDE (Integrated Development Environment) gratuita e de código aberto para R.
+- Disponível para Windows, macOS e Linux.
+- Oferece uma interface amigável e recursos avançados.
+- Facilita a escrita, depuração e visualização de resultados.
+\item Baixe o RStudio em: \texttt{https://www.rstudio.com/}
+
+## Interface do Rstudio
+
+```{r echo=FALSE,out.width="80%", fig.align = 'center', fig.cap="Interface do Rstudio."}
+dir<-"~/Área de Trabalho/Minicurso/figs/Rstudio_interface.png"
+knitr::include_graphics(dir)
+```
+
+
+## Primeiros passos
+
+\justifying
+Inicie o RStudio e crie um novo script. Comentários no R começam com # e são ignorados pelo interpretador.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Isto é um comentário
+```
+
+\justifying
+A seguir, iremos ver:
+
+1. Operações básicas (soma, subtração, multiplicação, divisão, potenciação)
+2. Variáveis
+3. Algumas funções básicas
+
+## Primeiros passos
+
+### Operações básicas
+\justifying
+O R pode ser usado como uma calculadora e Suporta as operações matemáticas básicas (soma, subtração, multiplicação, divisão, potenciação): +, -, *, /, ˆ(potenciação)
+
+## Primeiros passos: Operações básicas
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Soma e subtração
+10 - 3
+10 + 3
+```
+
+## Primeiros passos: Operações básicas
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Multiplicação e divisão
+8 * 2
+8 / 2
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+# Exponencial
+4^(1/2)
+```
+
+## Primeiros passos: Operações básicas - Exercícios
+
+\justifying
+Imagine que você é um professor de Matemática do ensino básico e um aluno curioso te pergunta:
+
+"Professor, quanto é 13 + 15 + 16 + 6?" 
+
+Você não quer fazer essa conta nos dedos, né? Mostre sua sabedoria em tecnologia e recorre ao R para dar uma resposta rápida.    
+
+Como deve ser o código para chegar ao resultado?
+
+
+
+## Primeiros passos: Operações básicas - Exercícios
+\justifying
+Agora você e mais 3 amigos resolveram sair para comer uma pizza. A conta deu 67 reais e vocês decidiram dividir a conta igualmente. Utilizando o R, escreva um código para saber quanto cada um deve pagar. 
+
+
+## Primeiros passos: Variáveis
+
+### Variáveis
+\justifying
+Variáveis são um dos grandes pilares da programação em R. Ao invés de trabalhar diretamente com valores, atribuímos valores às variáveis e trabalhamos com elas, o que torna a programação muito mais flexível. 
+
+## Primeiros passos: Variáveis
+\justifying
+
+Para atruibuir valores a uma variável, utiliza-se '=' ou <- Vejamos alguns exemplos de como isto funciona:
+
+```{r}
+x <- 4
+y = 2
+```
+
+\justifying
+Com isso, realizar operações com as variáveis. Por exemplo: 
+```{r}
+x*y
+y + x
+```
+
+## Primeiros passos: Variáveis
+
+### Nomes de variáveis
+
+\justifying
+Um nome de variável deve ser uma sequência de letras e números, e devem sempre começar com uma letra. Não se pode começar o nome com números ou caracteres especiais.
+
+## Primeiros passos: Variáveis
+```{r}
+# Nomes válidos:
+num2 = 2
+texto = "Olá"
+teste = 10
+```
+
+```{r}
+# print dos números
+num2
+texto
+teste
+```
+
+## Primeiros passos: Funções
+### Funções
+
+\justifying
+
+Em R, uma função é um bloco de código que realiza uma tarefa específica ou executa um conjunto de operações quando chamado. Funções são uma parte fundamental da linguagem de programação R e são usadas para realizar uma ampla variedade de tarefas, desde cálculos simples até tarefas mais complexas de análise de dados e manipulação.
+
+## Primeiros passos: Funções
+### Definição de Função em R
+
+\justifying
+
+Definição de Função: Antes de usar uma função em R, você deve defini-la. A definição de uma função envolve especificar o nome da função, os argumentos que ela aceita e o conjunto de operações que ela realizará quando chamada.
+
+## Primeiros passos: Funções
+\justifying
+Sintaxe de uma função:
+
+```{r, eval=FALSE}
+
+nome_funcao <- function(arg1, arg2,..., argn) {
+  comandos da funçao
+}
+
+```
+
+Aqui está um exemplo simples de definição de uma função em R:
+
+```{r}
+
+# Definindo uma função chamada "soma"
+soma <- function(a, b) {
+  resultado <- a + b
+  return(resultado)
+}
+```
+## Primeiros passos: Funções
+### Chamada de Funções
+
+\justifying
+Chamada de Função: Uma vez que uma função esteja definida, você pode chamá-la pelo nome, fornecendo os argumentos necessários. A chamada da função faz com que o R execute as operações especificadas na função
+
+## Primeiros passos: Funções
+\justifying
+
+Exemplo de chamada de uma função:
+
+```{r}
+# Chamando a função "soma" com os argumentos 5 e 3
+
+resultado_da_soma <- soma(5, 3)
+# Isso imprimirá "8" no console
+print(resultado_da_soma)  
+
+```
+
+## Primeiros passos: Funções
+\justifying
+O R possui muitas funções integradas que executam uma variedade de tarefas comuns em análise de dados, estatísticas e manipulação de objetos. Aqui estão alguns exemplos de funções básicas do R:
+
+Funções Matemáticas:
+
+* __sqrt(x)__: calcula a raiz quadrada de x;
+* __abs(x)__: retorna o valor absoluto de x;
+* __exp(x)__: retorna o exponencial de x;
+* __log(x, base = b)__: Retorna o Logaritmo de x na base b;
+* __sum($x_1,x_2, \ldots, x_n$)__: retorna a soma de $x_1,x_2, \ldots x_n$.
+
+## Primeiros passos: Funções
+
+```{r }
+# Exemplos de funções matemáticas
+x <- 4
+sqrt(x)
+exp(x)
+log(x, 2)
+sum(1,2,3,4)
+```
+
+## Primeiros passos: Funções - Exercícios
+
+Agora você é um professor do ensino médio, e as perguntas estão mais difíceis. Os alunos querem que você caclule o Logaritmo de 5 na base 8. Como isso pode ser feito no R? 
+
+## Primeiros passos: Funções - Exercícios
+
+Utilizando o R, atribua à variável $x$ o valor 45 e calcule:
+
+* Raiz quadrada de $x$;
+* Raiz cúbica de $x$;
+* Logaritmo de $x$ na base 3;
+* Exponencial de $x$
+* $x^2$
+
+## Primeiros passos: Entrada de dados
+### Entrada de dados no R
+\justifying
+A entrada de dados no R pode ser realizada de várias maneiras, dependendo do tipo de dados que você deseja inserir e do contexto em que está trabalhando. 
+
+## Primeiros passos: Entrada de dados
+
+\justifying
+Aqui estão algumas das principais maneiras de inserir dados no R:
+
+1. Vetores
+
+* Você pode criar vetores diretamente no R, atribuindo valores a variáveis. Para entrar com os vetores utilize o comando c, como descrito a seguir:
+
+```{r }
+vetor_numerico <- c(1, 2, 3, 4, 5)
+```
+
+## Primeiros passos: Entrada de dados
+\justifying
+2. Leitura de Arquivos de Dados:
+
+* Uma maneira comum de inserir dados no R é lendo arquivos de dados, como CSV, Excel, TXT, etc. Você pode usar funções como read.csv(), read.table(), entre outras, para importar dados de arquivos. Por exemplo: 
+
+
+```{r, eval=FALSE}
+dados <- read.csv("dados.csv")
+```
+
+Voltaremos a esse exemplo mais tarde com mais detalhes.
+
+# Estatísticas Descritivas
+
+### Medidas resumo
+\justifying
+
+Após coletar os dados e armazená-los, precisamos interpretá-los por meio de medidas que resumem os dados. Estas podem caracterizar a localização (posição), a dispersão ou a forma dos dados.
+
+## Estatísticas Descritivas: Medidas resumo
+\justifying
+
+__Exemplo__: O _mínimo_ ou o _máximo_ de um conjunto de dados, a _moda_ (valor mais frequente), _média_, _mediana_ são valores que indicam posições do conjunto de dados.
+
+Já as medidas de dispersão são aquelas que, como o nome sugere, indicam a variabilidade dos dados.
+
+__Exemplo__: Variância, Desvio padrão e etc.
+
+## Estatísticas Descritivas: Medidas resumo
+
+### Média
+\justifying
+A média aritmética é a soma de todos os elementos dividida pelo número de componentes da soma.
+
+## Estatísticas Descritivas: Medidas resumo
+\justifying
+No R, a função _mean()_ calcula a média aritmética dos valores em um vetor.
+
+__Exmplo__: Suponha que você tenha um vetor chamado idade e deseje calcular a média dessas idades:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Vetor com as idades
+idade = c(23,25, 30, 19, 60, 18, 60)
+# Utilzando a função mean para cacular a média
+mean(idade)
+```
+## Estatísticas Descritivas: Medidas resumo
+
+### Mediana
+\justifying
+A mediana é o valor que divide o conjunto de dados ordenados ao meio, separando exatamente 50% dos dados abaixo e 50% dos dados acima desse valor.
+
+## Estatísticas Descritivas: Medidas resumo
+\justifying
+No R, a função _median()_ calcula a mediana de um conjunto de dados.
+
+__Exmplo__: Considerando o exemplo anterior, temos que:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Utilzando a função median para cacular a mediana
+median(idade)
+```
+
+## Estatísticas Descritivas: Medidas resumo
+
+### Variância
+\justifying
+A variância é uma medida de dispersão que indica o quão os valores em um conjunto de dados estão dispersos ao redor da média e é definida como:
+\begin{align*}
+    \sigma^2 = \sum_{i=1}^n \dfrac{(x_i - \overline{x})^2}{n},
+\end{align*}
+sendo $n$ o número de observações, $x_i$ os valores individuais no conjunto de dados e $\bar{x}$ a média dos valores.
+
+
+## Estatísticas Descritivas: Medidas resumo
+
+### Desvio Padrão
+\justifying
+O desvio padrão é outra medida de dispersão, definida como a raiz quadrada da variância. Ele é expresso na mesma unidade de medida dos dados originais, tornando-o mais intuitivo sua interpretação. A fórmula do desvio padrão é:
+
+\begin{align*}
+    \mathrm{Desvio \,\ padrão} = \sqrt{\sigma^2}
+\end{align*}
+
+
+## Estatísticas Descritivas: Medidas resumo
+\justifying
+No R, utilizadmos as funções _var()_ e _sd()_ para cacular, respctivamente, a variância e o desvio padrão de um conjunto de dados.
+
+__Exmplo__: Considerando o exemplo anterior, temos que:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Cálculo da variância da "idade"
+var(idade)
+
+# Cálculo do desvio padrão da "idade"
+sd(idade)
+```
+
+## Estatísticas Descritivas: Medidas resumo - Exercícios
+
+Considere as notas de 10 alunos da disciplina de estatística dadas a seguir: 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Notas de 10 alunos da disciplina de estatística
+notas<-c(6.0,7.3,9.8,6.7,10,8.9,6.7,2.4,5.4,5.5)
+```
+
+Utilizando o R, calcule:
+
+* Média;
+* Mediana;
+* Variâcia; 
+* Desvio padrão.
+
+# Tratamento de Dados
+
+## Tratamento de Dados: Data frame
+
+### Data frame 
+\justifying
+Um data frame é uma matriz bidimensional em que cada coluna pode conter dados de tipos diferentes, como números, caracteres, fatores, datas, etc. Os data frames são muito semelhantes às tabelas em bancos de dados ou planilhas de Excel e são amplamente utilizados para representar dados no contexto de análise de dados e estatísticas.
+
+
+## Tratamento de Dados: Data frame
+
+\justifying
+Aqui está um exemplo simples de criação de um data frame em R:
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Criar um data frame
+data_frame <- data.frame(
+  Nome = c("João", "Maria", "Carlos"),
+  Idade = c(30, 25, 35),
+  Sexo = c("M", "F", "M")
+)
+data_frame
+```
+
+## Tratamento de Dados: Data frame
+
+\justifying
+
+Para acessar colunas específicas de um data frame, utilize o operador '$'. Por exemplo: 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Acessar a coluna "Idade" no data frame "data_frame"
+data_frame$Idade
+```
+
+Ou então use colchetes [ ] com o nome da coluna. Por exemplo:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Acessar a coluna "Idade" no data frame "data_frame"
+data_frame["Idade"]
+```
+
+## Tratamento de Dados: Data frame
+
+\justifying
+
+Com isso, podemos realizar análises estatísticos para cada variável em um data frame. Por exemplo, podemos calcular a média das idades para o data frame 'data_frame'   
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Média da da variável "Idade" no data frame
+# "data_frame"
+mean(data_frame$Idade)
+```
+
+## Tratamento de Dados: Data frame - Exercícios
+
+\justifying
+Utilizando as notas dos alunos da disciplina de estatística consideradas no último exercício, crie nomes fictícios, atribua um sexo e monte um data frame com essas informações. Dica:
+
+```{r eval= F, message=FALSE, warning=FALSE}
+# Notas de 10 alunos da disciplina de estatítica
+notas<-c(6.0,7.3,9.8,6.7,10,8.9,6.7,2.4,5.4,5.5)
+nomes<- c("João", "Maria", "José", . . .)
+sexo<-c("M", "F", "M", . . .)
+dados_notas_df<-data.frame(notas,nomes,sexo)
+```
+
+## Tratamento de Dados: Data frame - Exercícios
+
+\justifying
+Considerando o data frame 'dados_notas_df', por meio do operador '$', encontre a média das notas e o seu desvio padrão. 
+
+
+## Tratamento de Dados: Leitura de dados
+
+### Leitura de dados
+
+\justifying
+O início de qualquer projeto de análise de dados envolve a aquisição dos dados, que frequentemente são disponibilizados em arquivos locais com formatos como .csv, .xlsx, .txt, entre outros.
+
+## Tratamento de Dados: Leitura de dados
+
+\justifying
+
+Um primeiro comando a ser executado e registrado é a configuração da pasta onde estão salvos os arquivos como pasta de trabalho. Para isso, utilize.
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+setwd()
+```
+Por exemplo: 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+setwd("/home/jordan/Área de Trabalho/Minicurso")
+```
+Neste exemplo, é especificado o local onde os aquivos estão salvos.
+
+
+## Tratamento de Dados: Leitura de dados
+
+\justifying
+Podemos abreviar a pasta pessoal por "~". Então escrevemos:
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+setwd("~/Área de Trabalho/Minicurso")
+```
+
+Observe que a barra invertida "/" é utilizada para delimitar pastas e arquivos no R. Com ela é possível usar a tecla __Tab__ para completar nomes de arquivos.
+
+ 
+No Rstudio, ainda podemos utilizar o atalho: Ctrl + Shift + H
+
+Uma vez que o diretório está definido, podemos começar a trabalhar com os nossos dados.
+
+## Tratamento de Dados: Leitura de dados
+
+### Aqruivos .csv
+\justifying
+Arquivos do formato CSV (Comma Separated Values) são documentos de texto simples, que podem ser abertos em editores de texto comuns, pois não incluem nenhum tipo de formatação especial, como negrito, itálico, cores ou espaçamento entre linhas.
+
+## Tratamento de Dados: Leitura de dados
+
+\justifying
+A fim de importar um arquivo no formato .csv, é comum empregarmos a função _read.table()_. Entretanto, para usar essa função de maneira adequada, é essencial ter ciência de algumas informações cruciais, tais como:
+
+1. O caractere utilizado para separar os valores.;
+2. Se os valores textuais são delimitados por aspas simples, aspas duplas ou não possuem nenhum tipo de delimitação especial; 
+3. Se os nomes das variáveis estão na primeira linha do arquivo. 
+
+
+## Tratamento de Dados: Leitura de dados
+
+\justifying
+Aqui está um exemplo de como ler um arquivo e .csv no R.
+
+```{r, message=FALSE, warning=FALSE}
+dados<-read.table("Dados_empresaMB.csv", 
+                  header = T,sep = ",",
+                  dec = ".",quote = '"')
+```
+
+\justifying
+Neste contexto, estamos fornecendo à função _read.table()_ as seguintes informações: a primeira linha do arquivo contém os nomes das variáveis (ou seja, há um cabeçalho presente no arquivo, ou header), os valores distintos estão separados por vírgulas, uma vírgula é usada como separador decimal e os valores textuais são delimitados por aspas duplas (quotation marks).
+
+
+## Tratamento de Dados: Leitura de dados
+
+\justifying
+Utilize o comando a seguir para vizualizar a tabela com os dados:
+```{r, eval = F, message=FALSE, warning=FALSE}
+View(dados)
+```
+
+
+
+## Tratamento de Dados: Pacotes (packages) em R
+
+### Pacotes
+
+\justifying
+Em R, pacotes são extensões de software que contêm funções, dados e documentação adicionais que podem ser usados para estender as funcionalidades da linguagem base do R. 
+
+## Tratamento de Dados: Pacotes (packages) em R
+
+\justifying
+Aqui estão algumas informações importantes sobre pacotes em R:
+
+1. __Instalação de Pacotes:__ Para usar um pacote em R, você precisa primeiro instalá-lo. Use a função _install.packages()_. Por exemplo:
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+install.packages("ggplot2")
+```
+2. __Carregamento de Pacotes:__ Após a instalação, você deve carregar um pacote em sua sessão R usando a função _library()_ ou _require()_. Isso torna as funções e dados do pacote disponíveis para uso. Por exemplo:
+
+```{r , message=FALSE, warning=FALSE}
+library(ggplot2)
+```
+
+
+## Tratamento de Dados: Pacotes (packages) em R
+
+\justifying
+
+3. __Documentação:__ A maioria dos pacotes inclui documentação que descreve como usar as funções e recursos do pacote. Você pode acessar a documentação de um pacote usando a função _help()_ ou ? seguida pelo nome do pacote ou função. Por exemplo:
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+help(ggplot2)
+```
+
+## Tratamento de Dados: Limpeza e tratamento 
+
+### dplyr
+\justifying
+O pacote dplyr é bastante utilizado para uma ampla gama de operações de manipulação de dados, abrangendo desde agregação, resumo, filtragem, ordenação até a criação de variáveis, junção de dados e muito mais.
+
+## Tratamento de Dados: Limpeza e tratamento 
+Instalando o pacote dplyr
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+install.packages("dplyr")
+```
+
+Carregando o pacote dplyr
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library("dplyr")
+```
+
+\justifying
+Vamos usar o dataset 'Dados_empresaMB', com informações sobre os empregados da seção de orçarmento da Companhia MB para demonstrar o uso das principais funções do dplyr.
+
+## Tratamento de Dados: Limpeza e tratamento 
+### select()
+\justifying
+Select é uma função muito simples: serve para selecionar ou remover colunas.
+
+## Tratamento de Dados: Limpeza e tratamento 
+
+\justifying
+Por exemplo, para selecionar as colunas estado_civil e salário, utilizamos o seguinte comando.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Tarefa: selecionar colunas estado_civil e salario
+dados %>% select(estado_civil,salario) %>% head()
+```
+
+O comando _head()_ retornar as primeiras linhas de um data frame.
+
+## Tratamento de Dados: Limpeza e tratamento 
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: remover as colunas estado_civil e salario
+dados %>% select(-estado_civil,-salario)
+```
+Podemos também salvar essa tabela em um outro objeto. Por exmplo:
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: remover as colunas estado_civil e salario
+df<-dados %>% select(-estado_civil,-salario)
+df
+```
+
+## Tratamento de Dados: Limpeza e tratamento 
+Outras possibilidades:
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: selecionar todas as colunas numéricas
+dados %>% select_if(is.numeric) %>% head()
+```
+Podemos também salvar essa tabela em um outro objeto. Por exmplo:
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: selecionar apenas as 
+# colunas cujo nome começa com idade
+dados %>% select(starts_with("idade")) %>% head()
+```
+
+## Tratamento de Dados: Limpeza e tratamento 
+### filter()
+\justifying
+Você pode criar filtros para selecionar observações com base em um ou mais critérios. Esses critérios podem ser estabelecidos usando operadores lógicos, como >, >=, <, <=, != e ==, ou através de funções que retornam valores booleanos (ou seja, TRUE ou FALSE)
+
+## Tratamento de Dados: Limpeza e tratamento 
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: filtrar as linhas onde o valor da 
+# coluna salário é maior que 3.
+dados %>% filter(salario > 3) %>% head()
+```
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: filtrar todas os dados que cujo salário
+# é diferente de 3.
+dados %>% filter(salario != 3) %>% head()
+```
+
+## Tratamento de Dados: Limpeza e tratamento 
+### mutate() 
+\justifying
+Serve para criar novas colunas que são funções de colunas já existentes no data frame
+
+## Tratamento de Dados: Limpeza e tratamento 
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+# tarefa: criar uma coluna com o valor do salário 
+# transformado para a escala logarítmica
+dados %>% 
+  mutate(log_salario = log(salario)) %>% head()
+```
+
+## Tratamento de Dados: Limpeza e tratamento 
+### group_by() e summarise() 
+\justifying
+A combinação de group_by() e summarise() é uma ferramenta poderosa para agregar e resumir dados. Quando usamos group_by(), as funções aplicadas com summarise(), ou até mesmo com mutate() ou filter(), não são aplicadas a todo o conjunto de dados, mas sim a cada grupo definido pela variável especificada na função group_by. Isso permite análises mais detalhadas e específicas em subconjuntos de dados.
+
+## Tratamento de Dados: Limpeza e tratamento 
+
+```{r, eval=T, message=FALSE, warning=FALSE}
+# tarefa: criar uma coluna com o valor médio do salário 
+# segundo a região de procedência
+dados %>% 
+  group_by(grau_instrucao) %>%
+  summarise(media_salario = mean(salario))
+```
+
+# Visualização de Dados
+## O que é o ggplot2?
+\justifying
+1. O ggplot2 é um pacote de visualização de dados no R.
+2. Foi desenvolvido por Hadley Wickham.
+3. O ggplot2 é altamente flexível e baseado na "Grammar of Graphics."
+4. Ele permite criar gráficos complexos com facilidade.
+
+Instalando o pacote
+```{r, eval=F, message=FALSE, warning=FALSE}
+install.packages("ggplot2")
+```
+Carregando o pacote
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+library("ggplot2")
+```
+
+## Visualização de Dados: esqueleto do ggplot2
+\justifying
+Cada camada em um gráfico contém elementos visuais chamados de "geoms," que são objetos geométricos, e possuem propriedades estéticas (aesthetics ou aes) que controlam sua aparência e posicionamento no gráfico, incluindo tamanho, cor, estilo, localização e transparência. Isso permite personalizar elementos gráficos, como barras coloridas e pontos representados por diferentes formas, no ggplot2.
+
+## Visualização de Dados: esqueleto do ggplot2
+\justifying
+Portanto, o código abaixo representa o “esqueleto” do código usado para produzir um gráfico no ggplot2:
+
+```{r, eval = F, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  )
+```
+
+## Visualização de Dados: Gráfico de barras - geom_bar()
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, out.width="70%"}
+#Exemplo simples de um gráfico de barras
+ggplot(dados, aes(x=grau_instrucao)) + geom_bar()
+```
+
+## Visualização de Dados: Histograma - geom_histogram()
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, out.width="70%"}
+#Exemplo simples de um gráfico de barras
+ggplot(dados, aes(x=salario)) + geom_histogram()
+```
+
+
+## Visualização de Dados: Histograma - geom_histogram()
+
+```{r, eval=F, message=FALSE, warning=FALSE, out.width="70%"}
+#Exemplo simples de um gráfico de barras
+ggplot(dados, aes(x=salario)) + 
+  geom_histogram(bins = 5) +
+  theme_classic() +
+  xlab("Salário") + 
+  ylab("Frequência")
+```
+
+## Visualização de Dados: Histograma - geom_histogram()
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="70%"}
+#Exemplo simples de um gráfico de barras
+ggplot(dados, aes(x=salario)) + 
+  geom_histogram(bins = 5) +
+  theme_classic() +
+  xlab("Salário") + 
+  ylab("Frequência")
+```
+
+## Visualização de Dados: Gráfico de dispersão - geom_point()
+
+```{r, eval=F, message=FALSE, warning=FALSE, out.width="70%"}
+#Exemplo simples de um gráfico de barras
+ggplot(dados, aes(y=salario, x=idade_anos)) + 
+  geom_point() +
+  theme_classic() +
+  xlab("Idade") + 
+  ylab("Salário")
+```
+
+
+## Visualização de Dados: Gráfico de dispersão - geom_point()
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="70%"}
+#Exemplo simples de um gráfico de barras
+ggplot(dados, aes(y=salario, x=idade_anos)) + 
+  geom_point() +
+  theme_classic(base_size = 18) +
+  xlab("Idade") + 
+  ylab("Salário")
+```
+
+# Gráficos interativos
+
+## Pacote esquisse
+
+O pacote Esquisse possibilita a criação de gráficos interativos com o pacote 'ggplot2', permitindo recursos como a capacidade de arrastar e soltar para mapear suas variáveis de forma intuitiva.
+
+Instalação
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+install.packages("esquisse")
+```
+Carregando o pacote
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+library("esquisse")
+```
+
+## Pacote esquisse - Exemplos
+
+```{r, eval=F, message=FALSE, warning=FALSE}
+esquisser(Dados,viewer = "browser")
+```
